@@ -38,8 +38,14 @@ class BootstrapForm(object):
         super(BootstrapForm, self).__init__(*args, **kwargs)
         for field in self.fields:
             field = self.fields[field]
-            if isinstance(field.widget, forms.CheckboxSelectMultiple):
-                continue
+           
+            to_continue = False
+            for widget_class in (forms.CheckboxSelectMultiple, forms.CheckboxInput):
+                if isinstance(field.widget, widget_class):
+                    to_continue = True
+                    break
+            if to_continue: continue
+
             classes = ['form-control']
             if 'class' in field.widget.attrs:
                 classes.append(field.widget.attrs['class'])
