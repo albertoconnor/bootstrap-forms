@@ -23,5 +23,6 @@ setup(
     ],
     packages=[
         'bootstrap_forms',
+        'bootstrap_forms.templatetags'
     ],
 )
