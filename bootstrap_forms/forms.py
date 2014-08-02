@@ -6,7 +6,7 @@ from django.utils.html import format_html, format_html_join
 from django.utils.encoding import force_text, python_2_unicode_compatible
 
 
-default_template = '''
+default_template = u'''
 {% if form.non_field_errors %}
 <div class="form_errors">
 {% for error in form.non_field_errors %}
@@ -34,7 +34,7 @@ default_template = '''
 {% endfor %}
 '''
 
-default_field_template = '''<div class="form-group">
+default_field_template = u'''<div class="form-group">
   <label for="{{ field.html_name }}" class="control-label{% if field.field.required %} required{% endif %}">{{ field.label }}</label>
   <div class="controls{% if field.field.widget.inline %} form-inline{% endif %}">
     {{ field }}
@@ -89,12 +89,12 @@ class BootstrapRadioInput(forms.widgets.RadioInput):
         value = value or self.value
         attrs = attrs or self.attrs
         if 'id' in self.attrs:
-            label_for = format_html(' for="{0}_{1}"', self.attrs['id'], self.index)
+            label_for = format_html(u' for="{0}_{1}"', self.attrs['id'], self.index)
         else:
-            label_for = ''
+            label_for = u''
         choice_label = force_text(self.choice_label)
         return format_html(
-            '<label{0} class="radio inline">{1} {2}</label>', 
+            u'<label{0} class="radio inline">{1} {2}</label>',
             label_for,
             self.tag(),
             self.choice_label
@@ -109,10 +109,10 @@ class BootStrapRadioRenderer(forms.widgets.RadioFieldRenderer):
 
     def render(self):
         return format_html(
-            '{0}',
-            format_html_join('\n', '{0}', [(force_text(w),) for w in self])
+            u'{0}',
+            format_html_join(u'\n', u'{0}', [(force_text(w),) for w in self])
         )
-        
+
     def __str__(self):
         return b''
 

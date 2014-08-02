@@ -25,3 +25,13 @@ def as_bootstrap(field):
     template = Template(default_field_template)
     ctx = Context(dict(field=field))
     return template.render(ctx)
+
+@register.filter()
+def add_class(field, class_):
+    classes = ['class_']
+    if 'class' in field.widget.attrs:
+        classes.append(field.widget.attrs['class'])
+    field.widget.attrs.update(
+        {'class' : ' '.join(classes)}
+    )
+    return field
