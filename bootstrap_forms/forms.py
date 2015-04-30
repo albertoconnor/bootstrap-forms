@@ -12,6 +12,7 @@ default_template = u'''
 {% for error in form.non_field_errors %}
 <div class="error">{{ error }}</div>
 {% endfor %}
+</div>
 {% endif %}
 {% for field in form.visible_fields %}
 <div class="form-group">
