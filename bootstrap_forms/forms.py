@@ -5,6 +5,12 @@ from django.template import Template, Context
 from django.utils.html import format_html, format_html_join
 from django.utils.encoding import force_text, python_2_unicode_compatible
 
+try:
+    from django.forms.widgets import RadioSelect
+except ImportError:
+    from django.forms.widgets import RadioInput
+    RadioSelect = RadioInput
+
 
 default_template = u'''
 {% if form.non_field_errors %}
@@ -84,7 +90,7 @@ class BootstrapForm(object):
         ctx = Context(dict(form=self))
         return template.render(ctx)
 
-class BootstrapRadioInput(forms.widgets.RadioInput):
+class BootstrapRadioInput(RadioSelect):
     def render(self, name=None, value=None, attrs=None, choices=()):
         name = name or self.name
         value = value or self.value
